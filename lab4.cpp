@@ -907,13 +907,25 @@ int Stmt()
 				if(letter[num]==";")
 				{
 					num++;
-					fprintf(out,"          ret i32 ");
+					
 					if(shuzi[0].type==0)
-						fprintf(out,"%d",shuzi[0].value);
+					{
+						fprintf(out,"          ret i32 ");
+						fprintf(out,"%d\n",shuzi[0].value);
+					}
 					else if(shuzi[0].type==2)
-						fprintf(out,"%s",shuzi[0].name2.c_str());
+					{
+						fprintf(out,"          ret i32 ");
+						fprintf(out,"%s\n",shuzi[0].name2.c_str());
+					}
 					else if(shuzi[0].type==1)
-						fprintf(out,"*%s",shuzi[0].name2.c_str());
+					{
+						fprintf(out,"          %%x%d = load i32, i32* %s\n",++numb,shuzi[0].name2.c_str());
+						sprintf(ch,"%%x%d",numb);
+						shuzi[0].name2=ch;
+						fprintf(out,"          ret i32 ");
+						fprintf(out,"%s\n",shuzi[0].name2.c_str());
+					}
 					return 5;
 				}
 				else
