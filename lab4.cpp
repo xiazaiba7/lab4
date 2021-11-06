@@ -1411,9 +1411,18 @@ int PrimaryExp(int opt,int numfei)
 					if(numfei>0)
 					{
 						char ch[10];
+						if(numfei>0)
+						{
+							if(idents[i].type==1)
+							{
+								fprintf(out,"          %%x%d = load i32, i32* %s\n",++numb,idents[i].name2.c_str());
+								sprintf(ch,"%%x%d",numb);
+								idents[i].name2=ch;
+								idents[i].type=2; 
+							}
+						 } 
 						while(numfei>0)
 						{
-							
 							fprintf(out,"          %%x%d = icmp eq i32 %s, 0\n",++numb,idents[i].name2.c_str());
 							sprintf(ch,"%%x%d",numb);
 							idents[i].name2=ch;
