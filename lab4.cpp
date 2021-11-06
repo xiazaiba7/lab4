@@ -1241,7 +1241,13 @@ int AddExp()
 				num++;
 			}
 			if(MulExp()==0)
+			{
 				return 0;
+			}
+			while(letter[num]=="block")
+			{
+				num++;
+			}
 		}
 		return 1;
 	}
@@ -1303,6 +1309,10 @@ int MulExp()
 			{
 				num++;
 			}
+		}
+		while(letter[num]=="block")
+		{
+			num++;
 		}
 		return 1;
 	}
@@ -1627,6 +1637,11 @@ int RelExp()
 			{
 				return 0;
 			}
+			while(top2!=-1)
+			{
+				operate(op[top2]);
+				top2--;
+			}
 			while(letter[num]=="block")
 			{
 				num++;
@@ -1683,9 +1698,15 @@ int EqExp()
 			{
 				return 0;
 			}
+			while(top2!=-1)
+			{
+				operate(op[top2]);
+				top2--;
+			}
 			while(letter[num]=="block")
 			{
 				num++;
+				
 			}
 			PrintEq(judge,yuan);
 		}
@@ -1730,6 +1751,11 @@ int LAndExp()
 			{
 				return 0;
 			}
+			while(top2!=-1)
+			{
+				operate(op[top2]);
+				top2--;
+			}
 			while(letter[num]=="block")
 			{
 				num++;
@@ -1770,6 +1796,11 @@ int LOrExp()
 			if(LAndExp()<=0)
 			{
 				return 0;
+			}
+			while(top2!=-1)
+			{
+				operate(op[top2]);
+				top2--;
 			}
 			while(letter[num]=="block")
 			{
