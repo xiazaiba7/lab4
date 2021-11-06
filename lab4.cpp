@@ -247,7 +247,7 @@ void PrintLAnd(ident yuan)
 	fprintf(out,"          %%x%d = and i32 %s, %s\n",++numb,yuan.name2.c_str(),shuzi[0].name2.c_str());
 	sprintf(ch,"%%x%d",numb);
 	shuzi[0].name2=ch;
-	shuzi[0].type=3;
+	shuzi[0].type=2;
 }
 void PrintLOr(ident yuan)
 {
@@ -289,7 +289,7 @@ void PrintLOr(ident yuan)
 	fprintf(out,"          %%x%d = or i32 %s, %s\n",++numb,yuan.name2.c_str(),shuzi[0].name2.c_str());
 	sprintf(ch,"%%x%d",numb);
 	shuzi[0].name2=ch;
-	shuzi[0].type=3;
+	shuzi[0].type=2;
 }
 int q[100];
 int top=0;
