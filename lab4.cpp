@@ -804,6 +804,7 @@ int Vardef()
 }
 int Stmt()
 {
+	char ch[10];
 	top1=-1;
 	top2=-1;
 	while(letter[num]=="block")
@@ -1043,6 +1044,13 @@ int Stmt()
 						}
 						int if_block=++blocknum;
 						int out_block=++blocknum;
+						if(shuzi[0].type==2)
+						{
+							fprintf(out,"          %%x%d = icmp ne i32 %s, 0\n",++numb,shuzi[0].name2.c_str());
+							sprintf(ch,"%%x%d",numb);
+							shuzi[0].name2=ch;
+							shuzi[0].type=3;
+						}
 						fprintf(out,"          br i1 %s ,label %%basic_block_%d, label %%basic_block_%d\n",shuzi[0].name2.c_str(),if_block,out_block);
 						fprintf(out,"\n");
 						fprintf(out,"          basic_block_%d:\n",if_block);
