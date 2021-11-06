@@ -1334,7 +1334,7 @@ int MulExp()
 		return 0;
 	}
  } 
-int PrimaryExp(int opt)
+int PrimaryExp(int opt,int numfei)
 {
 	while(letter[num]=="block")
 	{
@@ -1407,6 +1407,23 @@ int PrimaryExp(int opt)
 					if(idents[i].type==1&&constdef==true)
 					{
 						return 0;
+					}
+					if(numfei>0)
+					{
+						char ch[10];
+						while(numfei>0)
+						{
+							
+							fprintf(out,"          %%x%d = icmp eq i32 %s, 0\n",++numb,idents[i].name2.c_str());
+							sprintf(ch,"%%x%d",numb);
+							idents[i].name2=ch;
+							idents[i].type=3;
+							fprintf(out,"          %%x%d = zext i1 %s to i32\n",++numb,idents[i].name2.c_str());
+							sprintf(ch,"%%x%d",numb);
+							idents[i].name2=ch;
+							idents[i].type=2;
+							numfei--;
+						}
 					}
 					if(opt==-1)
 					{
@@ -1585,11 +1602,16 @@ int UnaryExp()
 		num=j;
 	}
 	int opt=1;
-	while(letter[num]=="+"||letter[num]=="-")
+	int numfei=0;
+	while(letter[num]=="+"||letter[num]=="-"||letter[num]=="!")
 	{
 		if(letter[num]=="-")
 		{
 			opt = -opt;
+		}
+		else if(letter[num]=="!")
+		{
+			numfei++;
 		}
 		num++;
 		while(letter[num]=="block")
@@ -1597,7 +1619,7 @@ int UnaryExp()
 			num++;
 		}
 	}
-	if(PrimaryExp(opt)>0)
+	if(PrimaryExp(opt,numfei)>0)
 		return 1;
 	else
 		return 0;
