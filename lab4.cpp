@@ -1041,12 +1041,12 @@ int Stmt()
 									out_block=++blocknum;
 									fprintf(out,"          br label %%basic_block_%d\n",out_block);
 									fprintf(out,"\n");
-									fprintf(out,"          %%basic_block_%d:\n",else_block);
+									fprintf(out,"          basic_block_%d:\n",else_block);
 									if(Stmt()>0)
 									{
 										fprintf(out,"          br label %%basic_block_%d\n",out_block);
 										fprintf(out,"\n");
-										fprintf(out,"          %%basic_block_%d:\n",out_block);
+										fprintf(out,"          basic_block_%d:\n",out_block);
 										return 4;
 									}
 									else
@@ -1058,7 +1058,7 @@ int Stmt()
 								{
 									fprintf(out,"          br label %%basic_block_%d\n",out_block);
 									fprintf(out,"\n");
-									fprintf(out,"          %%basic_block_%d:\n",out_block);
+									fprintf(out,"          basic_block_%d:\n",out_block);
 									num=x;
 									return 4;
 								}
