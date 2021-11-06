@@ -1408,43 +1408,43 @@ int PrimaryExp(int opt,int numfei)
 					{
 						return 0;
 					}
+					ident newident1=idents[i],newident2;
 					if(numfei>0)
 					{
 						char ch[10];
 						if(numfei>0)
 						{
-							if(idents[i].type==1)
+							if(newident1.type==1)
 							{
-								fprintf(out,"          %%x%d = load i32, i32* %s\n",++numb,idents[i].name2.c_str());
+								fprintf(out,"          %%x%d = load i32, i32* %s\n",++numb,newident1.name2.c_str());
 								sprintf(ch,"%%x%d",numb);
-								idents[i].name2=ch;
-								idents[i].type=2; 
+								newident1.name2=ch;
+								newident1.type=2; 
 							}
 						 } 
 						while(numfei>0)
 						{
-							fprintf(out,"          %%x%d = icmp eq i32 %s, 0\n",++numb,idents[i].name2.c_str());
+							fprintf(out,"          %%x%d = icmp eq i32 %s, 0\n",++numb,newident1.name2.c_str());
 							sprintf(ch,"%%x%d",numb);
-							idents[i].name2=ch;
-							idents[i].type=3;
-							fprintf(out,"          %%x%d = zext i1 %s to i32\n",++numb,idents[i].name2.c_str());
+							newident1.name2=ch;
+							newident1.type=3;
+							fprintf(out,"          %%x%d = zext i1 %s to i32\n",++numb,newident1.name2.c_str());
 							sprintf(ch,"%%x%d",numb);
-							idents[i].name2=ch;
-							idents[i].type=2;
+							newident1.name2=ch;
+							newident1.type=2;
 							numfei--;
 						}
 					}
 					if(opt==-1)
 					{
 						op[++top2]='(';
-						ident newident;
-						newident.type=0;
-						newident.value=0;
-						newident.name="";
-						newident.name2="";
-						shuzi[++top1]=newident;
+						newident2.type=0;
+						newident2.value=0;
+						newident2.name="";
+						newident2.name2="";
+						shuzi[++top1]=newident2;//0
 						op[++top2]='-';
-						shuzi[++top1]=idents[i];
+						shuzi[++top1]=newident1;
 						while(op[top2]!='(')
 						{
 							operate(op[top2]);
@@ -1454,7 +1454,7 @@ int PrimaryExp(int opt,int numfei)
 					}
 					else if(opt==1)
 					{
-						shuzi[++top1]=idents[i];
+						shuzi[++top1]=newident1;
 					}
 					flag=1;
 					break;
