@@ -427,6 +427,35 @@ int symbol(string s)
  	else
  		return false;
  }
+int Block()
+{
+	while(letter[num]=="block")
+	{
+		num++;
+	}
+	if(letter[num]=="{")
+	{
+		num++;
+	}
+	else
+	{
+		return 0; 
+	}
+	while(Blockitem()>0)//return
+	{
+		while(letter[num]=="block")
+		num++;	
+	}
+	if(letter[num]=="}")
+	{
+		return 1;
+	}
+	else
+	{
+		return 0;
+	}
+	return 0;
+}
 int Blockitem()
 {
 	while(letter[num]=="block")
@@ -848,43 +877,47 @@ int Stmt()
 	num=j;
 	top1=-1;
 	top2=-1;
-	if(letter[num]=="{")
+//	if(letter[num]=="{")
+//	{
+//		num++;
+//		while(letter[num]=="block")
+//		{
+//			num++;
+//		}
+//		if(Blockitem()>0)
+//		{
+//			while(letter[num]=="block")
+//			{
+//				num++;
+//			}
+//			int x=num;
+//			while(Blockitem()>0)
+//			{
+//				while(letter[num]=="block")
+//				{
+//					num++;
+//				}
+//				x=num;
+//			}
+//			num=x;
+//			if(letter[num]=="}")
+//			{
+//				num++;
+//				return 1;
+//			}
+//			else
+//			{
+//				return 0;
+//			}
+//		}
+//		else
+//		{
+//			return 0;
+//		}	
+//	}
+	if(Block()>0)
 	{
-		num++;
-		while(letter[num]=="block")
-		{
-			num++;
-		}
-		if(Blockitem()>0)
-		{
-			while(letter[num]=="block")
-			{
-				num++;
-			}
-			int x=num;
-			while(Blockitem()>0)
-			{
-				while(letter[num]=="block")
-				{
-					num++;
-				}
-				x=num;
-			}
-			num=x;
-			if(letter[num]=="}")
-			{
-				num++;
-				return 1;
-			}
-			else
-			{
-				return 0;
-			}
-		}
-		else
-		{
-			return 0;
-		}	
+		return 1;
 	}
 	num=j;
 	if((letter[num]>="a"&&letter[num]<="z")||(letter[num]>="A"&&letter[num]<="Z")||letter[num]=="_")
@@ -1363,6 +1396,29 @@ int PrimaryExp(int opt,int numfei)
 					top2--;
 				}
 				top2--;
+				if(numfei>0)
+				{
+					char ch[10];
+					if(shuzi[top1].type==1)
+					{
+						fprintf(out,"          %%x%d = load i32, i32* %s\n",++numb,shuzi[top1].name2.c_str());
+						sprintf(ch,"%%x%d",numb);
+						shuzi[top1].name2=ch;
+						shuzi[top1].type=2; 
+					}
+					while(numfei>0)
+					{
+						fprintf(out,"          %%x%d = icmp eq i32 %s, 0\n",++numb,shuzi[top1].name2.c_str());
+						sprintf(ch,"%%x%d",numb);
+						shuzi[top1].name2=ch;
+						shuzi[top1].type=3;
+						fprintf(out,"          %%x%d = zext i1 %s to i32\n",++numb,shuzi[top1].name2.c_str());
+						sprintf(ch,"%%x%d",numb);
+						shuzi[top1].name2=ch;
+						shuzi[top1].type=2;
+						numfei--;
+					}
+				}
 				if(opt==-1)
 				{
 				
@@ -1938,26 +1994,34 @@ int FuncDef()
 				{
 					while(letter[num]=="block")
 						num++;
-					if(symbol(letter[num])==5)
+					if(Block()>0)
 					{
-						while(letter[num]=="block")// {
-							num++;
-						while(Blockitem()>0)//return
-						{
-							while(letter[num]=="block")
-								num++;	
-						}
-						while(letter[num]=="block")
-							num++;
-						if(symbol(letter[num])==9)
-						{
-							return 1;
-						}
-						else
-						{
-							return 0;
-						 } 
+						return 1;
 					}
+					else
+					{
+						return 0;
+					}
+//					if(symbol(letter[num])==5)
+//					{
+//						while(letter[num]=="block")// {
+//							num++;
+//						while(Blockitem()>0)//return
+//						{
+//							while(letter[num]=="block")
+//								num++;	
+//						}
+//						while(letter[num]=="block")
+//							num++;
+//						if(symbol(letter[num])==9)
+//						{
+//							return 1;
+//						}
+//						else
+//						{
+//							return 0;
+//						 } 
+//					}
 				}
 			}	
 		}
