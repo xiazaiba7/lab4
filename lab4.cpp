@@ -446,17 +446,16 @@ int Block()
 			{
 				num++;
 			}
+			int x=num;
 			while(Blockitem()>0)
 			{
 				while(letter[num]=="block")
 				{
 					num++;
 				}
+				x=num;
 			}
-			while(letter[num]=="block")
-			{
-				num++;
-			}
+			num=x;
 			if(letter[num]=="}")
 			{
 				num++;
@@ -894,46 +893,44 @@ int Stmt()
 	num=j;
 	top1=-1;
 	top2=-1;
-//	if(letter[num]=="{")
-//	{
-//		num++;
-//		while(letter[num]=="block")
-//		{
-//			num++;
-//		}
-//		if(Blockitem()>0)
-//		{
-//			while(letter[num]=="block")
-//			{
-//				num++;
-//			}
-//			int x=num;
-//			while(Blockitem()>0)
-//			{
-//				while(letter[num]=="block")
-//				{
-//					num++;
-//				}
-//				x=num;
-//			}
-//			num=x;
-//			if(letter[num]=="}")
-//			{
-//				num++;
-//				return 1;
-//			}
-//			else
-//			{
-//				return 0;
-//			}
-//		}
-//		else
-//		{
-//			return 0;
-//		}	
-//	}
-	if(Block()>0)
-		return 1;	
+	if(letter[num]=="{")
+	{
+		num++;
+		while(letter[num]=="block")
+		{
+			num++;
+		}
+		if(Blockitem()>0)
+		{
+			while(letter[num]=="block")
+			{
+				num++;
+			}
+			int x=num;
+			while(Blockitem()>0)
+			{
+				while(letter[num]=="block")
+				{
+					num++;
+				}
+				x=num;
+			}
+			num=x;
+			if(letter[num]=="}")
+			{
+				num++;
+				return 1;
+			}
+			else
+			{
+				return 0;
+			}
+		}
+		else
+		{
+			return 0;
+		}	
+	}
 	num=j;
 	if((letter[num]>="a"&&letter[num]<="z")||(letter[num]>="A"&&letter[num]<="Z")||letter[num]=="_")
 	{
@@ -1986,30 +1983,26 @@ int FuncDef()
 				{
 					while(letter[num]=="block")
 						num++;
-					if(Block()>0)
-						return 1;
-					else
-						return 0;
-//					if(symbol(letter[num])==5)
-//					{
-//						while(letter[num]=="block")// {
-//							num++;
-//						while(Blockitem()>0)//return
-//						{
-//							while(letter[num]=="block")
-//								num++;	
-//						}
-//						while(letter[num]=="block")
-//							num++;
-//						if(symbol(letter[num])==9)
-//						{
-//							return 1;
-//						}
-//						else
-//						{
-//							return 0;
-//						 } 
-//					}
+					if(symbol(letter[num])==5)
+					{
+						while(letter[num]=="block")// {
+							num++;
+						while(Blockitem()>0)//return
+						{
+							while(letter[num]=="block")
+								num++;	
+						}
+						while(letter[num]=="block")
+							num++;
+						if(symbol(letter[num])==9)
+						{
+							return 1;
+						}
+						else
+						{
+							return 0;
+						 } 
+					}
 				}
 			}	
 		}
