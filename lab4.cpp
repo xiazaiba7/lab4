@@ -446,16 +446,17 @@ int Block()
 			{
 				num++;
 			}
-			int x=num;
 			while(Blockitem()>0)
 			{
 				while(letter[num]=="block")
 				{
 					num++;
 				}
-				x=num;
 			}
-			num=x;
+			while(letter[num]=="block")
+			{
+				num++;
+			}
 			if(letter[num]=="}")
 			{
 				num++;
