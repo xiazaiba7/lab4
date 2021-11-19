@@ -436,25 +436,45 @@ int Block()
 	if(letter[num]=="{")
 	{
 		num++;
-	}
-	else
-	{
-		return 0; 
-	}
-	while(Blockitem()>0)//return
-	{
 		while(letter[num]=="block")
-		num++;	
-	}
-	if(letter[num]=="}")
-	{
-		return 1;
+		{
+			num++;
+		}
+		if(Blockitem()>0)
+		{
+			while(letter[num]=="block")
+			{
+				num++;
+			}
+			int x=num;
+			while(Blockitem()>0)
+			{
+				while(letter[num]=="block")
+				{
+					num++;
+				}
+				x=num;
+			}
+			num=x;
+			if(letter[num]=="}")
+			{
+				num++;
+				return 1;
+			}
+			else
+			{
+				return 0;
+			}
+		}
+		else
+		{
+			return 0;
+		}	
 	}
 	else
 	{
 		return 0;
 	}
-	return 1;
 }
 int Blockitem()
 {
